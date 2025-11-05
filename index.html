@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impostor Word Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>🎭 Impostor Word Game</h1>
+
+    <div id="setup">
+      <label>Número de jugadores:</label>
+      <input type="number" id="numPlayers" min="3" max="10" value="4">
+      <button id="startGame">Iniciar partida</button>
+    </div>
+
+    <div id="game" class="hidden">
+      <h2 id="playerTitle"></h2>
+      <p id="secretInfo"></p>
+      <button id="nextPlayer">Mostrar siguiente jugador</button>
+      <button id="restart" class="hidden">Reiniciar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
