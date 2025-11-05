@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="app">
-    <h1>🎭 Impostor Word Game</h1>
+    <h1 class="title">🎭 Impostor Word Game</h1>
 
     <div id="setup">
       <label>Número de jugadores:</label>
@@ -18,9 +18,15 @@
 
     <div id="game" class="hidden">
       <h2 id="playerTitle"></h2>
-      <p id="secretInfo"></p>
-      <button id="nextPlayer">Mostrar siguiente jugador</button>
-      <button id="restart" class="hidden">Reiniciar</button>
+
+      <div id="secretCard" class="card hidden">
+        <p id="secretText"></p>
+      </div>
+
+      <button id="toggleWord" class="hidden">👁️ Mostrar palabra</button>
+      <button id="nextPlayer" class="hidden">➡️ Siguiente jugador</button>
+      <button id="startRound" class="hidden">🎤 Empezar ronda</button>
+      <button id="restart" class="hidden">🔁 Reiniciar</button>
     </div>
   </div>
 
