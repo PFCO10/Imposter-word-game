@@ -1,56 +1,54 @@
 const words = [
-  { word: "nevera", hint: "electrodoméstico" },
   { word: "volcán", hint: "lugar natural" },
-  { word: "guitarra", hint: "instrumento musical" },
-  { word: "astronauta", hint: "profesión" },
   { word: "pizza", hint: "comida" },
-  { word: "playa", hint: "lugar al aire libre" },
+  { word: "astronauta", hint: "profesión" },
   { word: "robot", hint: "tecnología" },
-  { word: "león", hint: "animal" },
-  { word: "biblioteca", hint: "lugar con libros" },
-  { word: "fútbol", hint: "deporte" },
-  { word: "diamante", hint: "gema" },
-  { word: "avión", hint: "transporte" },
-  { word: "castillo", hint: "construcción antigua" },
-  { word: "bosque", hint: "entorno natural" },
-  { word: "montaña", hint: "paisaje" },
-  { word: "micrófono", hint: "objeto de escenario" },
   { word: "nieve", hint: "fenómeno meteorológico" },
-  { word: "helado", hint: "postre frío" },
-  { word: "reloj", hint: "objeto cotidiano" },
+  { word: "castillo", hint: "estructura antigua" },
   { word: "sirena", hint: "criatura mítica" },
-  { word: "dinosaurio", hint: "animal extinto" },
-  { word: "hospital", hint: "institución" },
-  { word: "murciélago", hint: "animal nocturno" },
+  { word: "fútbol", hint: "deporte" },
+  { word: "biblioteca", hint: "lugar con libros" },
+  { word: "tiburón", hint: "animal marino" },
+  { word: "bruja", hint: "personaje mágico" },
   { word: "radio", hint: "medio de comunicación" },
-  { word: "televisión", hint: "aparato electrónico" },
-  { word: "caracol", hint: "animal lento" },
-  { word: "semáforo", hint: "objeto urbano" },
-  { word: "tren", hint: "medio de transporte" },
-  { word: "libélula", hint: "insecto" },
-  { word: "mapa", hint: "herramienta geográfica" },
-  { word: "reptil", hint: "categoría animal" },
-  { word: "espacio", hint: "concepto científico" },
-  { word: "luna", hint: "astro" },
-  { word: "sol", hint: "estrella" },
+  { word: "tren", hint: "transporte" },
   { word: "planeta", hint: "cuerpo celeste" },
-  { word: "camisa", hint: "ropa" },
-  { word: "vampiro", hint: "ser de fantasía" },
-  { word: "bruja", hint: "figura mágica" },
+  { word: "sol", hint: "estrella" },
+  { word: "dinosaurio", hint: "animal extinto" },
   { word: "payaso", hint: "personaje de circo" },
   { word: "mariposa", hint: "insecto colorido" },
-  { word: "tiburón", hint: "animal marino" },
-  { word: "estrella", hint: "objeto del cielo" },
+  { word: "hospital", hint: "institución" },
+  { word: "león", hint: "animal" },
 ];
 
 let players = [];
 let currentPlayer = 0;
-let secretWord, hint, impostorIndex;
+let impostorIndexes = [];
+let secretWord, hint;
 
+const numPlayersInput = document.getElementById("numPlayers");
+const numImpostorsSelect = document.getElementById("numImpostors");
+const impostorWarning = document.getElementById("impostorWarning");
+
+numPlayersInput.addEventListener("input", checkImpostorLimit);
+numImpostorsSelect.addEventListener("change", checkImpostorLimit);
+
+function checkImpostorLimit() {
+  const numPlayers = parseInt(numPlayersInput.value);
+  const impostors = parseInt(numImpostorsSelect.value);
+
+  if (numPlayers < 5 && impostors === 2) {
+    impostorWarning.classList.remove("hidden");
+    numImpostorsSelect.value = "1";
+  } else {
+    impostorWarning.classList.add("hidden");
+  }
+}
+
+/* === ELEMENTOS === */
 const setup = document.getElementById("setup");
 const game = document.getElementById("game");
 const results = document.getElementById("results");
-
 const playerTitle = document.getElementById("playerTitle");
 const secretCard = document.getElementById("secretCard");
 const secretText = document.getElementById("secretText");
@@ -69,17 +67,27 @@ showResults.addEventListener("click", showFinalResults);
 restart.addEventListener("click", () => location.reload());
 document.getElementById("playAgain").addEventListener("click", () => location.reload());
 
+/* === INICIO === */
 function startGame() {
-  const numPlayers = parseInt(document.getElementById("numPlayers").value);
+  const numPlayers = parseInt(numPlayersInput.value);
+  const numImpostors = parseInt(numImpostorsSelect.value);
   const random = words[Math.floor(Math.random() * words.length)];
 
   secretWord = random.word;
   hint = random.hint;
-  impostorIndex = Math.floor(Math.random() * numPlayers);
+
   players = Array.from({ length: numPlayers }, (_, i) => i);
+
+  impostorIndexes = [];
+  while (impostorIndexes.length < numImpostors) {
+    const rand = Math.floor(Math.random() * numPlayers);
+    if (!impostorIndexes.includes(rand)) impostorIndexes.push(rand);
+  }
 
   setup.classList.add("hidden");
   game.classList.remove("hidden");
+  game.classList.add("slide");
+
   showPlayer();
 }
 
@@ -89,7 +97,6 @@ function showPlayer() {
   toggleWord.classList.remove("hidden");
   nextPlayer.classList.add("hidden");
   startRound.classList.add("hidden");
-  secretCard.classList.remove("slide");
 }
 
 function toggleSecret() {
@@ -97,7 +104,7 @@ function toggleSecret() {
   secretCard.classList.add("fade");
 
   if (!secretCard.classList.contains("hidden")) {
-    if (currentPlayer === impostorIndex) {
+    if (impostorIndexes.includes(currentPlayer)) {
       secretText.innerHTML = `<strong>PISTA GENERAL:</strong> ${hint}`;
     } else {
       secretText.innerHTML = `<strong>PALABRA SECRETA:</strong> ${secretWord}`;
@@ -132,7 +139,7 @@ function showNextPlayer() {
 function startDiscussion() {
   playerTitle.textContent = "🗣️ Fase de Pistas";
   secretText.innerHTML =
-    "Cada jugador debe decir una palabra o pista relacionada con su palabra (sin decirla). Después, voten quién creen que es el impostor.";
+    "Cada jugador debe dar una pista sobre su palabra sin decirla directamente. Luego voten quién creen que es el impostor.";
   startRound.classList.add("hidden");
   showResults.classList.remove("hidden");
 }
@@ -141,9 +148,11 @@ function showFinalResults() {
   game.classList.add("hidden");
   results.classList.remove("hidden");
 
+  const impostorList = impostorIndexes.map(i => `Jugador ${i + 1}`).join(", ");
+
   resultsText.innerHTML = `
     🔤 <strong>Palabra secreta:</strong> ${secretWord}<br>
-    🕵️ <strong>El impostor era:</strong> Jugador ${impostorIndex + 1}<br><br>
+    🕵️ <strong>Impostor(es):</strong> ${impostorList}<br><br>
     ¡Gracias por jugar! 🎉
   `;
 }
