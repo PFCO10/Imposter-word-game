@@ -1,37 +1,56 @@
+/* === FONDO ANIMADO === */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at center, #1e1e2e, #0f0f1a);
-  color: #fff;
-  text-align: center;
-  min-height: 100vh;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: 'Poppins', sans-serif;
   overflow: hidden;
 }
 
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(270deg, #ffb3c6, #b3d9ff, #c6ffb3, #ffb3b3);
+  background-size: 800% 800%;
+  z-index: -1;
+  animation: moveBackground 15s ease infinite;
+  filter: blur(80px);
+}
+
+@keyframes moveBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* === CONTENEDOR PRINCIPAL === */
 #app {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  color: #222;
   padding: 40px;
-  border-radius: 15px;
+  border-radius: 20px;
   width: 90%;
   max-width: 520px;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  position: relative;
+  top: 50%;
+  transform: translateY(10%);
   animation: fadeIn 1s ease;
 }
 
 .title {
   font-size: 2em;
-  text-shadow: 0 0 10px #ff007f;
+  color: #ff007f;
+  text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
 }
 
-.hidden {
-  display: none;
-}
-
+/* === BOTONES === */
 button {
-  background: linear-gradient(90deg, #ff007f, #ff5f9e);
+  background: linear-gradient(90deg, #ff007f, #ff80bf);
   border: none;
   padding: 12px 22px;
   color: white;
@@ -39,53 +58,53 @@ button {
   border-radius: 10px;
   cursor: pointer;
   font-size: 17px;
-  box-shadow: 0 0 10px #ff007f;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+  transition: all 0.25s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #ff66b3;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.9);
 }
 
+.warning {
+  color: #cc0000;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* === CARTAS Y EFECTOS === */
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 0, 127, 0.2);
   border-radius: 12px;
   padding: 25px;
   margin: 25px auto;
   width: 80%;
   font-size: 1.2em;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+.hidden {
+  display: none;
+}
+
+/* === ANIMACIONES === */
 .fade {
   animation: fadeIn 0.6s ease;
 }
 
+.slide {
+  animation: slideIn 0.6s ease;
+}
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.slide {
-  animation: slideIn 0.7s ease;
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
