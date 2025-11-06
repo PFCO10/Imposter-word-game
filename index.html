@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Impostor Word Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="background"></div>
@@ -12,39 +12,106 @@
   <div id="app">
     <h1 class="title">🎭 Impostor Word Game</h1>
 
-    <div id="setup" class="fade">
-      <label>Número de jugadores:</label>
-      <input type="number" id="numPlayers" min="3" max="10" value="4"><br><br>
+    <!-- SETUP -->
+    <div id="setup" class="panel fade">
+      <div class="row">
+        <label>Número de jugadores</label>
+        <input id="numPlayers" type="number" min="3" max="10" value="4" />
+      </div>
 
-      <label for="numImpostors">Número de impostores:</label>
-      <select id="numImpostors">
-        <option value="1" selected>1 impostor</option>
-        <option value="2">2 impostores</option>
-      </select>
+      <div class="row">
+        <label>Número de impostores</label>
+        <select id="numImpostors">
+          <option value="1">1 impostor</option>
+          <option value="2">2 impostores</option>
+        </select>
+      </div>
+      <p id="impostorWarning" class="warning hidden">⚠️ Se necesitan al menos 5 jugadores para activar 2 impostores. Se ha forzado a 1 impostor.</p>
 
-      <p id="impostorWarning" class="warning hidden">⚠️ Se necesitan al menos 5 jugadores para activar 2 impostores.</p>
+      <div class="row">
+        <label>Categoría</label>
+        <select id="categorySelect">
+          <option value="aleatorio">Aleatorio 🎲</option>
+          <option value="comida">Comida 🍕</option>
+          <option value="animales">Animales 🦁</option>
+          <option value="lugares">Lugares 🌍</option>
+          <option value="objetos">Objetos 🧰</option>
+          <option value="profesiones">Profesiones 👷</option>
+          <option value="naturaleza">Naturaleza 🌿</option>
+          <option value="tecnologia">Tecnología 💻</option>
+        </select>
+      </div>
 
-      <button id="startGame">Iniciar partida</button>
+      <div class="row">
+        <label>Duración de la ronda</label>
+        <select id="durationSelect">
+          <option value="60">60 s</option>
+          <option value="90" selected>90 s</option>
+          <option value="120">120 s</option>
+        </select>
+      </div>
+
+      <div class="row inline">
+        <label class="switch">
+          <input type="checkbox" id="enableHints" checked />
+          <span class="slider"></span>
+        </label>
+        <span class="switchLabel">Mostrar pistas para impostores</span>
+      </div>
+
+      <div class="actions">
+        <button id="previewBtn">Ver resumen / Confirmar</button>
+      </div>
     </div>
 
-    <div id="game" class="hidden">
-      <h2 id="playerTitle"></h2>
+    <!-- CONFIRMACION -->
+    <div id="confirm" class="panel hidden slide">
+      <h3>Resumen de la partida</h3>
+      <div id="summary"></div>
+      <div class="actions">
+        <button id="backToSetup">🔙 Volver</button>
+        <button id="startGame">🎬 Comenzar partida</button>
+      </div>
+    </div>
+
+    <!-- GAME -->
+    <div id="game" class="panel hidden">
+      <h2 id="playerTitle">Jugador 1</h2>
 
       <div id="secretCard" class="card hidden">
         <p id="secretText"></p>
       </div>
 
-      <button id="toggleWord" class="hidden">👁️ Mostrar palabra</button>
-      <button id="nextPlayer" class="hidden">➡️ Siguiente jugador</button>
-      <button id="startRound" class="hidden">🎤 Empezar ronda</button>
-      <button id="showResults" class="hidden">📜 Mostrar resultados</button>
-      <button id="restart" class="hidden">🔁 Reiniciar</button>
+      <div class="actions">
+        <button id="toggleWord" class="hidden">👁️ Mostrar palabra</button>
+        <button id="nextPlayer" class="hidden">➡️ Siguiente jugador</button>
+      </div>
+
+      <div id="afterAll" class="hidden">
+        <div class="card">
+          <p id="preRoundText">Todos han visto su información. Prepárense.</p>
+          <div class="timerRow">
+            <div id="timerLabel">Tiempo</div>
+            <div id="progressBar">
+              <div id="progressFill"></div>
+            </div>
+            <div id="timeLeft">--</div>
+          </div>
+          <div class="actions">
+            <button id="startRound">🎤 Iniciar ronda de pistas</button>
+            <button id="showResults" class="hidden">📜 Mostrar resultados</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="results" class="hidden">
+    <!-- RESULTS -->
+    <div id="results" class="panel hidden slide">
       <h2>📜 Resultados</h2>
-      <p id="resultsText"></p>
-      <button id="playAgain">🔄 Nueva partida</button>
+      <div id="resultsText" class="card"></div>
+      <div class="actions">
+        <button id="playAgain">🔄 Nueva partida</button>
+      </div>
     </div>
   </div>
 
