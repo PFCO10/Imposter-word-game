@@ -12,50 +12,68 @@
   <div class="container fade">
     <h1>🎭 Impostor Word Game</h1>
 
-    <section id="setup">
-      <h2>Configuración de partida</h2>
-      <label>Jugadores: <input id="numPlayers" type="number" min="3" max="10" value="4"></label>
-      <label>Impostores: 
-        <select id="numImpostors">
-          <option value="1">1</option>
-          <option value="2">2</option>
-        </select>
-      </label>
-      <p id="impostorWarning" class="hidden warning">⚠️ Para 2 impostores necesitas mínimo 5 jugadores.</p>
+    <section id="setup" class="panel slide">
+  <h2>Configuración de partida</h2>
 
-      <label>Categoría: 
-        <select id="categorySelect">
-          <option value="aleatorio">Aleatorio</option>
-          <option value="comida">Comida</option>
-          <option value="animales">Animales</option>
-          <option value="lugares">Lugares</option>
-          <option value="objetos">Objetos</option>
-          <option value="profesiones">Profesiones</option>
-          <option value="naturaleza">Naturaleza</option>
-          <option value="tecnologia">Tecnología</option>
-          <option value="peliculas">Películas</option>
-          <option value="paises">Países</option>
-          <option value="deportes">Deportes</option>
-          <option value="hogar">Casa / Hogar</option>
-          <option value="conceptos">Conceptos</option>
-        </select>
-      </label>
+  <div class="config-item fade">
+    <label for="numPlayers">Jugadores:</label>
+    <input id="numPlayers" type="number" min="3" max="10" value="4">
+  </div>
 
-      <label>Duración: 
-        <select id="durationSelect">
-          <option value="60">60s (rápido)</option>
-          <option value="90" selected>90s (normal)</option>
-          <option value="180">180s (extendido)</option>
-        </select>
-      </label>
+  <div class="config-item fade">
+    <label for="numImpostors">Impostores:</label>
+    <select id="numImpostors">
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select>
+    <p id="impostorWarning" class="hidden warning">⚠️ Para 2 impostores necesitas mínimo 5 jugadores.</p>
+  </div>
 
-      <label>
-        <input type="checkbox" id="enableHints" checked> Mostrar pistas a impostores
-      </label>
+  <div class="config-item fade">
+    <label for="categorySelect">Categoría:</label>
+    <select id="categorySelect">
+      <option value="aleatorio">Aleatorio</option>
+      <option value="comida">Comida</option>
+      <option value="animales">Animales</option>
+      <option value="lugares">Lugares</option>
+      <option value="objetos">Objetos</option>
+      <option value="profesiones">Profesiones</option>
+      <option value="naturaleza">Naturaleza</option>
+      <option value="tecnologia">Tecnología</option>
+      <option value="peliculas">Películas</option>
+      <option value="paises">Países</option>
+      <option value="deportes">Deportes</option>
+      <option value="hogar">Casa / Hogar</option>
+      <option value="conceptos">Conceptos</option>
+    </select>
+  </div>
 
-      <button id="previewBtn">Ver resumen / Confirmar</button>
-    </section>
+  <div class="config-item fade">
+    <label for="durationSelect">Duración:</label>
+    <select id="durationSelect">
+      <option value="60">60s (rápido)</option>
+      <option value="90" selected>90s (normal)</option>
+      <option value="180">180s (extendido)</option>
+    </select>
+  </div>
 
+  <div class="config-item fade">
+    <label>
+      <input type="checkbox" id="enableHints" checked> Mostrar pistas a impostores
+    </label>
+  </div>
+
+    <div class="config-item fade">
+  <label for="enableHints" class="switch-label">
+    Mostrar pistas a impostores:
+  </label>
+  <label class="switch">
+    <input type="checkbox" id="enableHints" checked>
+    <span class="slider"></span>
+  </label>
+</div>
+  
+      
     <section id="confirm" class="hidden fade">
       <h2>Confirmar partida</h2>
       <div id="summary"></div>
