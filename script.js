@@ -3,81 +3,288 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM listo — inicializando juego");
 
-  /* =======================
-     Base de palabras (igual que antes)
-     ======================= */
-  const CATEGORIES = {
-    comida: [
-      { word: "pizza", hint: "comida italiana" },
-      { word: "hamburguesa", hint: "comida rápida" },
-      { word: "helado", hint: "postre frío" },
-      { word: "sopa", hint: "se toma con cuchara" },
-      { word: "pan", hint: "se hornea" },
-      { word: "arroz", hint: "grano comestible" },
-      { word: "queso", hint: "producto lácteo" },
-      { word: "ensalada", hint: "fresco y verde" }
-    ],
-    animales: [
-      { word: "gato", hint: "mascota" },
-      { word: "perro", hint: "amigo fiel" },
-      { word: "elefante", hint: "animal grande" },
-      { word: "tiburón", hint: "marino" },
-      { word: "loro", hint: "colorido" },
-      { word: "serpiente", hint: "reptil" },
-      { word: "delfín", hint: "inteligente" },
-      { word: "camello", hint: "desierto" }
-    ],
-    lugares: [
-      { word: "playa", hint: "arena" },
-      { word: "montaña", hint: "naturaleza" },
-      { word: "desierto", hint: "seco y caliente" },
-      { word: "biblioteca", hint: "libros" },
-      { word: "escuela", hint: "estudiantes" },
-      { word: "aeropuerto", hint: "viajes" },
-      { word: "estadio", hint: "deportes" },
-      { word: "parque", hint: "verde y público" }
-    ],
-    objetos: [
-      { word: "llave", hint: "metal" },
-      { word: "cuchara", hint: "utensilio" },
-      { word: "telefono", hint: "comunicación" },
-      { word: "linterna", hint: "luz" },
-      { word: "libro", hint: "leer" },
-      { word: "reloj", hint: "tiempo" },
-      { word: "ordenador", hint: "tecnología" },
-      { word: "mochila", hint: "llevar cosas" }
-    ],
-    profesiones: [
-      { word: "medico", hint: "salud" },
-      { word: "policia", hint: "autoridad" },
-      { word: "astronauta", hint: "espacio" },
-      { word: "profesor", hint: "enseña" },
-      { word: "carpintero", hint: "madera" },
-      { word: "piloto", hint: "avión" },
-      { word: "cocinero", hint: "comida" },
-      { word: "enfermero", hint: "cuidado" }
-    ],
-    naturaleza: [
-      { word: "arbol", hint: "hojas" },
-      { word: "rio", hint: "agua" },
-      { word: "volcan", hint: "montaña caliente" },
-      { word: "flor", hint: "colorida" },
-      { word: "nube", hint: "cielo" },
-      { word: "viento", hint: "aire" },
-      { word: "fuego", hint: "calor" },
-      { word: "bosque", hint: "árboles" }
-    ],
-    tecnologia: [
-      { word: "robot", hint: "máquina" },
-      { word: "ordenador", hint: "digital" },
-      { word: "internet", hint: "red" },
-      { word: "camara", hint: "imagen" },
-      { word: "dron", hint: "vuelo" },
-      { word: "impresora", hint: "papel" },
-      { word: "microchip", hint: "pequeño" },
-      { word: "smartphone", hint: "móvil" }
-    ]
-  };
+/* ===========================
+   BLOQUE 1 — BASE DE PALABRAS
+   (categorías ampliadas, >=20 items c/u)
+   =========================== */
+const CATEGORIES = {
+  comida: [
+    { word: "pizza", hint: "comida italiana" },
+    { word: "hamburguesa", hint: "comida rápida" },
+    { word: "helado", hint: "postre frío" },
+    { word: "sopa", hint: "se toma con cuchara" },
+    { word: "pan", hint: "se hornea" },
+    { word: "arroz", hint: "grano comestible" },
+    { word: "queso", hint: "producto lácteo" },
+    { word: "ensalada", hint: "fresco y verde" },
+    { word: "tortilla", hint: "plato a base de huevo" },
+    { word: "sushi", hint: "comida japonesa" },
+    { word: "pasta", hint: "plato hecho con harina" },
+    { word: "pollo", hint: "carne blanca" },
+    { word: "pescado", hint: "alimento del mar" },
+    { word: "chocolate", hint: "dulce popular" },
+    { word: "galleta", hint: "pequeño y crujiente" },
+    { word: "café", hint: "bebida estimulante" },
+    { word: "té", hint: "infusión caliente" },
+    { word: "mantequilla", hint: "grasa para cocinar" },
+    { word: "mermelada", hint: "dulce para untar" },
+    { word: "croissant", hint: "bollería hojaldrada" }
+  ],
+
+  animales: [
+    { word: "gato", hint: "mascota común" },
+    { word: "perro", hint: "mejor amigo del hombre" },
+    { word: "elefante", hint: "animal grande" },
+    { word: "tiburón", hint: "depredador marino" },
+    { word: "loro", hint: "ave que puede repetir" },
+    { word: "serpiente", hint: "reptil sin patas" },
+    { word: "delfín", hint: "mamífero marino inteligente" },
+    { word: "camello", hint: "animal del desierto" },
+    { word: "caballo", hint: "usado para montar" },
+    { word: "vaca", hint: "produce leche" },
+    { word: "cerdo", hint: "animal de granja" },
+    { word: "oveja", hint: "lana" },
+    { word: "ardilla", hint: "roedor de árboles" },
+    { word: "mapache", hint: "animal con máscara" },
+    { word: "ciervo", hint: "cornamenta" },
+    { word: "búho", hint: "ave nocturna" },
+    { word: "mariposa", hint: "insecto colorido" },
+    { word: "abeja", hint: "produce miel" },
+    { word: "pingüino", hint: "ave que no vuela" },
+    { word: "gallina", hint: "pone huevos" }
+  ],
+
+  lugares: [
+    { word: "playa", hint: "arena" },
+    { word: "montaña", hint: "naturaleza elevada" },
+    { word: "desierto", hint: "seco y caluroso" },
+    { word: "biblioteca", hint: "lugar con libros" },
+    { word: "escuela", hint: "centro de aprendizaje" },
+    { word: "aeropuerto", hint: "viajes por avión" },
+    { word: "estadio", hint: "eventos deportivos" },
+    { word: "parque", hint: "zona verde pública" },
+    { word: "restaurante", hint: "donde se come fuera" },
+    { word: "hospital", hint: "cuidados médicos" },
+    { word: "museo", hint: "exposiciones culturales" },
+    { word: "iglesia", hint: "edificación religiosa" },
+    { word: "puerto", hint: "entrada al mar para barcos" },
+    { word: "campamento", hint: "zona para tiendas" },
+    { word: "ciudad", hint: "zona urbana" },
+    { word: "isla", hint: "tierra rodeada de agua" },
+    { word: "aldea", hint: "población pequeña" },
+    { word: "teatro", hint: "espectáculos en vivo" },
+    { word: "estación", hint: "transporte público" },
+    { word: "jardín", hint: "plantas y flores" }
+  ],
+
+  objetos: [
+    { word: "llave", hint: "metal para abrir algo" },
+    { word: "cuchara", hint: "utensilio para sopa" },
+    { word: "telefono", hint: "comunicación a distancia" },
+    { word: "linterna", hint: "luz portátil" },
+    { word: "libro", hint: "leer" },
+    { word: "reloj", hint: "mide el tiempo" },
+    { word: "ordenador", hint: "máquina digital" },
+    { word: "mochila", hint: "llevar cosas" },
+    { word: "boligrafo", hint: "escribir sobre papel" },
+    { word: "silla", hint: "para sentarse" },
+    { word: "mesa", hint: "superficie plana" },
+    { word: "televisor", hint: "ver programas" },
+    { word: "ventilador", hint: "mover aire" },
+    { word: "paraguas", hint: "protegerse de la lluvia" },
+    { word: "cepillo", hint: "limpiar o peinar" },
+    { word: "camara", hint: "captura imágenes" },
+    { word: "auricular", hint: "sonido personal" },
+    { word: "bolsa", hint: "transportar artículos" },
+    { word: "almohada", hint: "apoyo para la cabeza" },
+    { word: "linterna", hint: "ilumina en la oscuridad" }
+  ],
+
+  profesiones: [
+    { word: "medico", hint: "salud" },
+    { word: "policia", hint: "seguridad" },
+    { word: "astronauta", hint: "espacio" },
+    { word: "profesor", hint: "enseña" },
+    { word: "carpintero", hint: "trabaja la madera" },
+    { word: "piloto", hint: "conduce aviones" },
+    { word: "cocinero", hint: "prepara comida" },
+    { word: "enfermero", hint: "cuidado sanitario" },
+    { word: "ingeniero", hint: "resuelve problemas técnicos" },
+    { word: "abogado", hint: "leyes y juicios" },
+    { word: "periodista", hint: "informa noticias" },
+    { word: "arquitecto", hint: "diseña edificios" },
+    { word: "mecanico", hint: "repara vehículos" },
+    { word: "bombero", hint: "apaga incendios" },
+    { word: "fotografo", hint: "captura imágenes" },
+    { word: "electricista", hint: "trabaja con electricidad" },
+    { word: "jardinero", hint: "cuida plantas" },
+    { word: "farmaceutico", hint: "medicinas" },
+    { word: "sastre", hint: "cose ropa" },
+    { word: "barbero", hint: "corta el pelo" }
+  ],
+
+  naturaleza: [
+    { word: "arbol", hint: "hojas y tronco" },
+    { word: "rio", hint: "corriente de agua" },
+    { word: "volcan", hint: "montaña que expulsa lava" },
+    { word: "flor", hint: "colorida y fragante" },
+    { word: "nube", hint: "en el cielo" },
+    { word: "viento", hint: "aire en movimiento" },
+    { word: "fuego", hint: "calor y llama" },
+    { word: "bosque", hint: "muchos árboles" },
+    { word: "cascada", hint: "agua que cae" },
+    { word: "glaciar", hint: "hielo permanente" },
+    { word: "oceano", hint: "gran masa de agua salada" },
+    { word: "prado", hint: "hierba abierta" },
+    { word: "cueva", hint: "hueco en la roca" },
+    { word: "acantilado", hint: "roca junto al mar" },
+    { word: "lluvia", hint: "gota desde el cielo" },
+    { word: "relampago", hint: "luz en la tormenta" },
+    { word: "granizo", hint: "precipitación de hielo" },
+    { word: "estepa", hint: "llanura seca" },
+    { word: "pantano", hint: "zona húmeda" },
+    { word: "solar", hint: "relacionado con el sol" }
+  ],
+
+  tecnologia: [
+    { word: "robot", hint: "máquina" },
+    { word: "ordenador", hint: "digital" },
+    { word: "internet", hint: "red global" },
+    { word: "camara", hint: "imagen" },
+    { word: "dron", hint: "vuelo" },
+    { word: "impresora", hint: "papel" },
+    { word: "microchip", hint: "pequeño y electrónico" },
+    { word: "smartphone", hint: "teléfono avanzado" },
+    { word: "aplicacion", hint: "programa" },
+    { word: "servidor", hint: "almacena datos" },
+    { word: "pantalla", hint: "muestra imágenes" },
+    { word: "bateria", hint: "fuente de energía" },
+    { word: "cable", hint: "conecta dispositivos" },
+    { word: "bluetooth", hint: "conexión inalámbrica" },
+    { word: "algoritmo", hint: "conjunto de reglas" },
+    { word: "sensores", hint: "detectan cambios" },
+    { word: "camara360", hint: "captura completa" },
+    { word: "usb", hint: "conector" },
+    { word: "router", hint: "distribuye red" },
+    { word: "monitor", hint: "pantalla de ordenador" }
+  ],
+
+  peliculas: [
+    { word: "titanic", hint: "drama y barco" },
+    { word: "inception", hint: "sueños dentro de sueños" },
+    { word: "godzilla", hint: "monstruo gigante" },
+    { word: "gladiator", hint: "época romana" },
+    { word: "matrix", hint: "realidad simulada" },
+    { word: "avatar", hint: "mundo azul" },
+    { word: "rocky", hint: "boxeo y superación" },
+    { word: "casablanca", hint: "clásico romántico" },
+    { word: "jaws", hint: "tiburón y playa" },
+    { word: "elysium", hint: "futuro distópico" },
+    { word: "et", hint: "amigo extraterrestre" },
+    { word: "amadeus", hint: "música y biografía" },
+    { word: "psicosis", hint: "suspense y baño" },
+    { word: "up", hint: "globos y aventura" },
+    { word: "frozen", hint: "princesas y hielo" },
+    { word: "casper", hint: "fantasma amigable" },
+    { word: "toy story", hint: "juguetes que cobran vida" },
+    { word: "memento", hint: "memoria y notas" },
+    { word: "el padrino", hint: "mafia y familia" },
+    { word: "los intocables", hint: "prohibición y delincuencia" }
+  ],
+
+  paises: [
+    { word: "españa", hint: "península ibérica" },
+    { word: "francia", hint: "torre famosa" },
+    { word: "japon", hint: "islas y tecnología" },
+    { word: "brasil", hint: "carnaval y fútbol" },
+    { word: "canada", hint: "clima frío y bosques" },
+    { word: "australia", hint: "continente-isla" },
+    { word: "egipto", hint: "pirámides" },
+    { word: "india", hint: "diversidad cultural" },
+    { word: "mexico", hint: "comida picante" },
+    { word: "alemania", hint: "industria y cerveza" },
+    { word: "italia", hint: "cultura y pasta" },
+    { word: "china", hint: "gran población" },
+    { word: "rusia", hint: "extensión enorme" },
+    { word: "argentina", hint: "tango y asado" },
+    { word: "grecia", hint: "antigua y mitos" },
+    { word: "turquia", hint: "puente entre continentes" },
+    { word: "sudafrica", hint: "diversidad y safaris" },
+    { word: "noruega", hint: "fiordos" },
+    { word: "islandia", hint: "paisaje volcánico" },
+    { word: "tailandia", hint: "playas y templos" }
+  ],
+
+  deportes: [
+    { word: "futbol", hint: "balón y estadio" },
+    { word: "baloncesto", hint: "canasta y dribling" },
+    { word: "tenis", hint: "raqueta" },
+    { word: "natacion", hint: "piscina" },
+    { word: "ciclismo", hint: "bicicleta" },
+    { word: "boxeo", hint: "combate con guantes" },
+    { word: "golf", hint: "hoyo y palo" },
+    { word: "billar", hint: "bola y taco" },
+    { word: "rugby", hint: "balón ovalado" },
+    { word: "hockey", hint: "palo y disco/bola" },
+    { word: "atletismo", hint: "carreras y salto" },
+    { word: "esqui", hint: "nieve y pendientes" },
+    { word: "surf", hint: "ola y tabla" },
+    { word: "voleibol", hint: "red y remates" },
+    { word: "esgrima", hint: "espada y duelo" },
+    { word: "cricket", hint: "bat y campo" },
+    { word: "boxeo", hint: "ring y rounds" },
+    { word: "maraton", hint: "larga distancia" },
+    { word: "triathlon", hint: "natación bici carrera" },
+    { word: "skate", hint: "tabla y rampa" }
+  ],
+
+  hogar: [
+    { word: "nevera", hint: "conserva comida fría" },
+    { word: "sofá", hint: "sentarse y relajarse" },
+    { word: "cama", hint: "dormir" },
+    { word: "microondas", hint: "calentar rápido" },
+    { word: "horno", hint: "hornear y cocinar" },
+    { word: "lavadora", hint: "limpia ropa" },
+    { word: "espalda", hint: "parte del cuerpo" }, // intentional variety
+    { word: "cortina", hint: "tapado de ventanas" },
+    { word: "alfombra", hint: "cubierta del suelo" },
+    { word: "espejo", hint: "reflejo" },
+    { word: "planta", hint: "verde en maceta" },
+    { word: "lavabo", hint: "lavarse las manos" },
+    { word: "grifos", hint: "agua que sale" },
+    { word: "cuadro", hint: "decoración de pared" },
+    { word: "armario", hint: "guardar ropa" },
+    { word: "colchón", hint: "soporte para dormir" },
+    { word: "toalla", hint: "secarse" },
+    { word: "jabón", hint: "limpieza" },
+    { word: "plato", hint: "recipiente para comer" },
+    { word: "tostadora", hint: "tuesta pan" }
+  ],
+
+  conceptos: [
+    { word: "amor", hint: "sentimiento fuerte" },
+    { word: "libertad", hint: "ausencia de restricciones" },
+    { word: "tiempo", hint: "medida y experiencia" },
+    { word: "felicidad", hint: "estado de ánimo positivo" },
+    { word: "miedo", hint: "emoción ante peligro" },
+    { word: "memoria", hint: "recordar" },
+    { word: "justicia", hint: "equidad" },
+    { word: "ciencia", hint: "estudio sistemático" },
+    { word: "arte", hint: "expresión creativa" },
+    { word: "cultura", hint: "prácticas de una sociedad" },
+    { word: "economia", hint: "recursos y dinero" },
+    { word: "filosofia", hint: "pensamiento crítico" },
+    { word: "educacion", hint: "proceso de aprendizaje" },
+    { word: "tecnologia", hint: "herramientas avanzadas" },
+    { word: "identidad", hint: "quién eres" },
+    { word: "esperanza", hint: "expectativa positiva" },
+    { word: "confianza", hint: "fe en alguien" },
+    { word: "creatividad", hint: "generar ideas nuevas" },
+    { word: "responsabilidad", hint: "cumplir con obligaciones" },
+    { word: "cambio", hint: "transformación" }
+  ]
+};
+
 
   function getAllWordsArray(){ return Object.values(CATEGORIES).flat(); }
 
@@ -205,7 +412,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    chosenPair = wordsPool[Math.floor(Math.random() * wordsPool.length)];
+    chosenPair = chooseWord();
+
 
     players = Array.from({length: np}, (_,i) => i);
     impostorIndexes = [];
@@ -223,6 +431,30 @@ document.addEventListener("DOMContentLoaded", () => {
     afterAllDiv.classList.add("hidden");
     showPlayer();
   });
+
+  /* ------------------------------
+   selección de palabra inteligente
+   ------------------------------ */
+function chooseWord() {
+  const categorySelect = document.getElementById("categorySelect");
+  const selectedCategory = categorySelect.value;
+
+  let categoryWords;
+
+  if (selectedCategory === "aleatorio") {
+    const allCategories = Object.keys(CATEGORIES);
+    const randomCat = allCategories[Math.floor(Math.random() * allCategories.length)];
+    categoryWords = CATEGORIES[randomCat];
+    console.log("Categoría aleatoria elegida:", randomCat);
+  } else {
+    categoryWords = CATEGORIES[selectedCategory];
+    console.log("Categoría seleccionada:", selectedCategory);
+  }
+
+  const randomWord = categoryWords[Math.floor(Math.random() * categoryWords.length)];
+  console.log("Palabra elegida:", randomWord);
+  return randomWord;
+}
 
   /* ------------------------------
      flujo por jugador
