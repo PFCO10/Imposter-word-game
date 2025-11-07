@@ -550,8 +550,37 @@ function chooseWord() {
     gamePanel.classList.add("hidden");
     resultsPanel.classList.remove("hidden");
     
-      // 🎉 Efecto multicolor y confeti
-  triggerCelebration();
+      /* ------------------------------
+   🎉 Animación de celebración final
+   ------------------------------ */
+function triggerCelebration(){
+  console.log("🎉 triggerCelebration activado!");
+
+  // flash multicolor suave
+  const flash = document.createElement("div");
+  flash.style.position = "fixed";
+  flash.style.inset = "0";
+  flash.style.zIndex = "999";
+  flash.style.background = "linear-gradient(45deg, #ff4d6d, #4dabf7, #ffd43b, #69db7c)";
+  flash.style.backgroundSize = "400% 400%";
+  flash.style.animation = "celebrationPulse 2.8s ease-in-out";
+  flash.style.opacity = "0.8";
+  document.body.appendChild(flash);
+  setTimeout(() => flash.remove(), 2800);
+
+  // generar confeti simple
+  for(let i=0; i<80; i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDelay = (Math.random() * 3) + "s";
+    c.style.backgroundColor = `hsl(${Math.random()*360}, 90%, 60%)`;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+
     
     const impostorList = impostorIndexes.map(i => `Jugador ${i+1}`).join(", ");
     resultsText.innerHTML = `
