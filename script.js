@@ -550,10 +550,36 @@ function chooseWord() {
     gamePanel.classList.add("hidden");
     resultsPanel.classList.remove("hidden");
     
-      /* ------------------------------
+  // Llamar al efecto 🎉
+  triggerCelebration();
+    
+    const impostorList = impostorIndexes.map(i => `Jugador ${i+1}`).join(", ");
+    resultsText.innerHTML = `
+      <p><strong>🔤 Palabra secreta:</strong> ${escapeHtml(chosenPair.word)}</p>
+      <p><strong>🕵️ Impostor(es):</strong> ${impostorList}</p>
+      <p style="margin-top:10px;">Gracias por jugar — si quieres otra ronda, pulsa <strong>Nueva partida</strong>.</p>
+    `;
+  }
+
+function showFinalResults() {
+  gamePanel.classList.add("hidden");
+  resultsPanel.classList.remove("hidden");
+
+  // Llamar al efecto 🎉
+  triggerCelebration();
+
+  const impostorList = impostorIndexes.map(i => `Jugador ${i+1}`).join(", ");
+  resultsText.innerHTML = `
+    <p><strong>🔤 Palabra secreta:</strong> ${escapeHtml(chosenPair.word)}</p>
+    <p><strong>🕵️ Impostor(es):</strong> ${impostorList}</p>
+    <p style="margin-top:10px;">Gracias por jugar — si quieres otra ronda, pulsa <strong>Nueva partida</strong>.</p>
+  `;
+}
+
+/* ------------------------------
    🎉 Animación de celebración final
    ------------------------------ */
-function triggerCelebration(){
+function triggerCelebration() {
   console.log("🎉 triggerCelebration activado!");
 
   // flash multicolor suave
@@ -569,27 +595,17 @@ function triggerCelebration(){
   setTimeout(() => flash.remove(), 2800);
 
   // generar confeti simple
-  for(let i=0; i<80; i++){
+  for (let i = 0; i < 80; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.style.left = Math.random() * 100 + "vw";
-    c.style.animationDelay = (Math.random() * 3) + "s";
-    c.style.backgroundColor = `hsl(${Math.random()*360}, 90%, 60%)`;
+    c.style.animationDelay = Math.random() * 3 + "s";
+    c.style.backgroundColor = `hsl(${Math.random() * 360}, 90%, 60%)`;
     document.body.appendChild(c);
     setTimeout(() => c.remove(), 4000);
   }
 }
-
-
-    
-    const impostorList = impostorIndexes.map(i => `Jugador ${i+1}`).join(", ");
-    resultsText.innerHTML = `
-      <p><strong>🔤 Palabra secreta:</strong> ${escapeHtml(chosenPair.word)}</p>
-      <p><strong>🕵️ Impostor(es):</strong> ${impostorList}</p>
-      <p style="margin-top:10px;">Gracias por jugar — si quieres otra ronda, pulsa <strong>Nueva partida</strong>.</p>
-    `;
-  }
-
+  
   playAgainBtn.addEventListener("click", () => location.reload());
 
   /* ------------------------------
