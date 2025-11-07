@@ -403,5 +403,64 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+/* ===============================
+   🎉 Celebration Effects — Momentos clave
+   =============================== */
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body.celebration::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(270deg, #ff6b6b, #feca57, #1dd1a1, #54a0ff, #5f27cd, #ff9ff3);
+  background-size: 600% 600%;
+  animation: rainbowShift 6s ease infinite;
+  opacity: 0.25;
+  filter: blur(50px) saturate(150%);
+  pointer-events: none;
+}
+
+/* Confeti flotante (animación global suave) */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--confetti-color, #fff);
+  border-radius: 50%;
+  top: -10px;
+  opacity: 0.8;
+  z-index: 9999;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Luz explosiva central */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, transparent 70%);
+  z-index: 10000;
+  opacity: 0;
+  animation: flashAnim 0.8s ease;
+}
+
+@keyframes flashAnim {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 
 /* End of CSS */
