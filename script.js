@@ -549,6 +549,10 @@ function chooseWord() {
   function showFinalResults(){
     gamePanel.classList.add("hidden");
     resultsPanel.classList.remove("hidden");
+    
+      // 🎉 Efecto multicolor y confeti
+  triggerCelebration();
+    
     const impostorList = impostorIndexes.map(i => `Jugador ${i+1}`).join(", ");
     resultsText.innerHTML = `
       <p><strong>🔤 Palabra secreta:</strong> ${escapeHtml(chosenPair.word)}</p>
